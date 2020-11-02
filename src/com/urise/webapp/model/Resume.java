@@ -5,15 +5,6 @@ package com.urise.webapp.model;
  */
 public class Resume {
 
-    // Unique identifier
-    //    public Resume() {
-    //    }
-    //    Resume(String uuid) {
-    //            this.uuid = uuid;
-    //    }
-
-
-
     private String uuid;
 
     public String getUuid() {

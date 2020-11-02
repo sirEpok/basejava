@@ -2,64 +2,68 @@ package com.urise.webapp.storage;
 
 import com.urise.webapp.model.Resume;
 
+import java.util.Arrays;
+
 /**
  * Array based storage for Resumes
  */
 public class ArrayStorage {
     private int size = 0;
-    private Resume[] storage = new Resume[10000];
+    private Resume[] storage = new Resume[10_000];
+
+    public int getIndex(String uuid) {
+        for (int i = 0; i < size; i++) {
+            if (uuid == storage[i].getUuid()) {
+                return i;
+            }
+        }
+        return -1;
+    }
 
     public void clear() {
-        for (int i = 0; i < size; i++) {
-            storage[i] = null;
-        }
+        Arrays.fill(storage, 0, size, null);
         size = 0;
     }
 
-    public void save(Resume r) {
-        for (int i = 0; i < size; i++) {
-            if (storage[i] == r) {
-                System.out.println("Такое резюме уже существует");
-            } else if (storage.length == size) {
-                System.out.println("База переполнена");
-            } else {
-                storage[size] = r;
-                size++;
-            }
+    public void save(Resume resume) {
+        int index = getIndex(resume.getUuid());
+        if (index != -1) {
+            System.out.println("Такое резюме уже существует: " + resume.getUuid());
+        } else if (size == storage.length) {
+            System.out.println("Массив переполнен");
+        } else {
+            storage[size] = resume;
+            size++;
         }
     }
 
-    public void update(Resume r) {
-        for (int i = 0; i < size; i++){
-            if (storage[i] == r) {
-                storage[i] = r;
-            } else {
-                System.out.println("Такого резюме не существует");
-            }
+    public void update(Resume resume) {
+        int index = getIndex(resume.getUuid());
+        if (index == -1) {
+            System.out.println("Такого резюме не существует: " + resume.getUuid());
+        } else {
+            storage[index] = resume;
         }
     }
 
     public Resume get(String uuid) {
-        for (int i = 0; i < size; i++){
-            if (storage[i].getUuid().equals(uuid)) {
-                return storage[i];
-            } else {
-                System.out.println("Такого резюме не существует");
-            }
+        int index = getIndex(uuid);
+        if (index == -1) {
+            System.out.println("Резюме не существует: " + uuid);
+            return null;
+        } else {
+            return storage[index];
         }
-        return null;
     }
 
     public void delete(String uuid) {
-        for (int i = 0; i < size; i++) {
-            if (storage[i].getUuid().equals(uuid)) {
-                storage[i] = storage[size - 1];
-                storage[size - 1] = null;
-                size--;
-                break;
-            } else {
-                System.out.println("Такого резюме не существует");
-            }
+        int index = getIndex(uuid);
+        if (index == -1) {
+            System.out.println("Резюме не существует: " + uuid);
+        } else {
+            storage[index] = storage[size - 1];
+            storage[size - 1] = null;
+            size--;
         }
     }
 
@@ -67,11 +71,7 @@ public class ArrayStorage {
      * @return array, contains only Resumes in storage (without null)
      */
     public Resume[] getAll() {
-        Resume[] resumes = new Resume[size];
-        for (int i = 0; i < size; i++) {
-            resumes[i] = storage[i];
-        }
-        return resumes;
+        return Arrays.copyOfRange(storage, 0, size);
     }
 
     public int size() {
