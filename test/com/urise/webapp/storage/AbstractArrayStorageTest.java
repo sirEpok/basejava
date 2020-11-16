@@ -108,6 +108,7 @@ public abstract class AbstractArrayStorageTest {
                 Assert.fail();
             }
         }
+        storage.save(new Resume());
     }
 
 }
