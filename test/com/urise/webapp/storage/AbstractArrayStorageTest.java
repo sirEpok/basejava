@@ -50,7 +50,7 @@ public abstract class AbstractArrayStorageTest {
     public void update() throws Exception {
         Resume resume = new Resume(UUID_1);
         storage.update(resume);
-        assertTrue(resume.equals(RESUME_1));
+        assertEquals(RESUME_1, resume);
     }
 
     @Test(expected = NotExistStorageException.class)
@@ -62,15 +62,14 @@ public abstract class AbstractArrayStorageTest {
     @Test
     public void getAll() throws Exception {
         Resume[] array = storage.getAll();
-        assertEquals(RESUME_1, array[0]);
-        assertEquals(RESUME_2, array[1]);
-        assertEquals(RESUME_3, array[2]);
+        assertArrayEquals(storage.getAll(),array);
     }
 
     @Test
     public void save() throws Exception {
         storage.save(RESUME_4);
         assertEquals(4, storage.size());
+        assertNotNull(RESUME_4);
     }
 
     @Test(expected = ExistStorageException.class)
@@ -82,6 +81,7 @@ public abstract class AbstractArrayStorageTest {
     public void delete() throws Exception {
         storage.delete(RESUME_1.getUuid());
         assertEquals(2, storage.size());
+        assertNotNull(RESUME_1);
     }
 
     @Test(expected = NotExistStorageException.class)
@@ -92,7 +92,7 @@ public abstract class AbstractArrayStorageTest {
     @Test
     public void get() throws Exception {
         Resume resume = new Resume(UUID_1);
-        assertNotNull(resume.getUuid());
+        assertEquals(RESUME_1, resume);
     }
 
     @Test(expected = NotExistStorageException.class)
@@ -101,11 +101,16 @@ public abstract class AbstractArrayStorageTest {
     }
 
     @Test(expected = StorageException.class)
-    public void storageOverflow() throws StorageException {
-        for (int i = 0; i <= AbstractArrayStorage.STORAGE_LIMIT+1; i++) {
+    public void storageOverflow() {
+        try {
+            for (int i = 0; i <= AbstractArrayStorage.STORAGE_LIMIT+1; i++) {
+                storage.save(new Resume());
+            }
+        } catch (Exception e) {
+            fail("Тест провалился");
+        } finally {
             storage.save(new Resume());
         }
-        Assert.fail();
     }
 
 }
