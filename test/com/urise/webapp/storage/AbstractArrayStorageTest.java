@@ -61,15 +61,15 @@ public abstract class AbstractArrayStorageTest {
 
     @Test
     public void getAll() throws Exception {
-        Resume[] array = storage.getAll();
-        assertArrayEquals(storage.getAll(),array);
+        Resume[] array = {RESUME_1, RESUME_2, RESUME_3};
+        assertArrayEquals(array, storage.getAll());
     }
 
     @Test
     public void save() throws Exception {
         storage.save(RESUME_4);
         assertEquals(4, storage.size());
-        assertNotNull(RESUME_4);
+        assertEquals(RESUME_4, storage.get("uuid4"));
     }
 
     @Test(expected = ExistStorageException.class)
@@ -77,11 +77,11 @@ public abstract class AbstractArrayStorageTest {
         storage.save(RESUME_2);
     }
 
-    @Test
+    @Test(expected = NotExistStorageException.class)
     public void delete() throws Exception {
-        storage.delete(RESUME_1.getUuid());
+        storage.delete("uuid3");
         assertEquals(2, storage.size());
-        assertNotNull(RESUME_1);
+        assertEquals(null, storage.get("uuid3"));
     }
 
     @Test(expected = NotExistStorageException.class)
@@ -91,8 +91,7 @@ public abstract class AbstractArrayStorageTest {
 
     @Test
     public void get() throws Exception {
-        Resume resume = new Resume(UUID_1);
-        assertEquals(RESUME_1, resume);
+        assertEquals(RESUME_1, storage.get("uuid1"));
     }
 
     @Test(expected = NotExistStorageException.class)
@@ -101,16 +100,15 @@ public abstract class AbstractArrayStorageTest {
     }
 
     @Test(expected = StorageException.class)
-    public void storageOverflow() {
+    public void storageOverflow() throws Exception {
         try {
-            for (int i = 0; i <= AbstractArrayStorage.STORAGE_LIMIT+1; i++) {
-                storage.save(new Resume());
+            for (int i = 0; i <= AbstractArrayStorage.STORAGE_LIMIT; i++) {
+                storage.save(RESUME_1);
             }
-        } catch (Exception e) {
-            fail("Тест провалился, ошибка раньше времени");
-        } finally {
-            storage.save(new Resume());
+            fail("Переполнение произошло раньше времени");
+        } catch (StorageException e) {
+            e.printStackTrace();
         }
+        storage.save(RESUME_1);
     }
-
 }
