@@ -48,7 +48,7 @@ public abstract class AbstractArrayStorageTest {
 
     @Test
     public void update() throws Exception {
-        Resume resume = new Resume(UUID_1);
+        Resume resume = RESUME_1;
         storage.update(resume);
         assertEquals(RESUME_1, resume);
     }
@@ -61,8 +61,8 @@ public abstract class AbstractArrayStorageTest {
 
     @Test
     public void getAll() throws Exception {
-        Resume[] array = {RESUME_1, RESUME_2, RESUME_3};
-        assertArrayEquals(array, storage.getAll());
+        Resume[] expectedResumes = {RESUME_1, RESUME_2, RESUME_3};
+        assertArrayEquals(expectedResumes, storage.getAll());
     }
 
     @Test
@@ -81,7 +81,7 @@ public abstract class AbstractArrayStorageTest {
     public void delete() throws Exception {
         storage.delete("uuid3");
         assertEquals(2, storage.size());
-        assertEquals(null, storage.get("uuid3"));
+        assertNull(storage.get("uuid3"));
     }
 
     @Test(expected = NotExistStorageException.class)
@@ -105,9 +105,8 @@ public abstract class AbstractArrayStorageTest {
             for (int i = 0; i <= AbstractArrayStorage.STORAGE_LIMIT; i++) {
                 storage.save(RESUME_1);
             }
-            fail("Переполнение произошло раньше времени");
         } catch (StorageException e) {
-            e.printStackTrace();
+            fail("Переполнение произошло раньше времени");
         }
         storage.save(RESUME_1);
     }
