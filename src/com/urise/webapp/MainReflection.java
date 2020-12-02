@@ -8,22 +8,17 @@ import java.lang.reflect.Method;
 
 public class MainReflection {
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws IllegalAccessException, NoSuchMethodException, InvocationTargetException {
         Resume resume = new Resume();
-        try {
-            Method method = resume.getClass().getDeclaredMethod("toString");
-            Field field = resume.getClass().getDeclaredFields()[0];
-            field.setAccessible(true);
-            field.set(resume, "new_uuid");
-            method.setAccessible(true);
-            method.invoke(resume);
-            System.out.println(resume);
-        } catch (NoSuchMethodException e) {
-            e.printStackTrace();
-        } catch (InvocationTargetException e) {
-            e.printStackTrace();
-        } catch (IllegalAccessException e) {
-            e.printStackTrace();
-        }
+        Class<? extends Resume> resumeClass = resume.getClass();
+        Field field = resumeClass.getDeclaredFields()[0];
+        field.setAccessible(true);
+        System.out.println(field.getName());
+        System.out.println(field.get(resume));
+        field.set(resume, "new_uuid");
+
+        Method method = resumeClass.getMethod("toString");
+        Object result = method.invoke(resume);
+        System.out.println(result);
     }
 }
