@@ -2,7 +2,10 @@ package com.urise.webapp.storage;
 
 import com.urise.webapp.model.Resume;
 
+import java.util.ArrayList;
+
 public class ListStorage extends AbstractStorage {
+    ArrayList<Resume> resumeArrayList = new ArrayList<>();
     @Override
     public int size() {
         return resumeArrayList.size();
@@ -14,7 +17,7 @@ public class ListStorage extends AbstractStorage {
     }
 
     @Override
-    protected void listUpdate(Object index, Resume resume) {
+    protected void increaseUpdate(Object index, Resume resume) {
         resumeArrayList.set((Integer) index, resume);
     }
 
@@ -28,22 +31,22 @@ public class ListStorage extends AbstractStorage {
     }
 
     @Override
-    protected void listSave(Object index, Resume resume) {
+    protected void increaseSave(Object index, Resume resume) {
         resumeArrayList.add(resume);
     }
 
     @Override
-    protected void listDelete(Object index) {
+    protected void increaseDelete(Object index) {
         resumeArrayList.remove(((Integer) index).intValue());
     }
 
     @Override
-    protected Resume listGet(Object index) {
+    protected Resume increaseGet(Object index) {
         return resumeArrayList.get((Integer) index);
     }
 
     @Override
-    protected Integer listGetIndex(String uuid) {
+    protected Integer increaseGetIndex(String uuid) {
         for (int i = 0; i < resumeArrayList.size(); i++) {
             if (resumeArrayList.get(i).getUuid().equals(uuid)) {
                 return i;
@@ -53,11 +56,7 @@ public class ListStorage extends AbstractStorage {
     }
 
     @Override
-    protected boolean existList(Object index) {
-        if (index != null){
-            return true;
-        } else {
-            return false;
-        }
+    protected boolean existIncrease(Object index) {
+        return index != null;
     }
 }
