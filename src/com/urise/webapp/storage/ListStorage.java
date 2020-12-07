@@ -6,47 +6,46 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class ListStorage extends AbstractStorage {
-    List<Resume> resumeArrayList = new ArrayList<>();
+    private List<Resume> listStorage = new ArrayList<>();
     @Override
     public int size() {
-        return resumeArrayList.size();
+        return listStorage.size();
     }
 
     @Override
     public void clear() {
-        resumeArrayList.clear();
+        listStorage.clear();
     }
 
     @Override
-    protected void increaseUpdate(Object index, Resume resume) {
-        resumeArrayList.set((Integer) index, resume);
+    protected void executeUpdate(Object index, Resume resume) {
+        listStorage.set((Integer) index, resume);
     }
 
     @Override
     public Resume[] getAll() {
-        Resume[] arrayResume = resumeArrayList.toArray(new Resume[resumeArrayList.size()]);
-        return arrayResume;
+        return listStorage.toArray(new Resume[listStorage.size()]);
     }
 
     @Override
-    protected void increaseSave(Object index, Resume resume) {
-        resumeArrayList.add(resume);
+    protected void executeSave(Object index, Resume resume) {
+        listStorage.add(resume);
     }
 
     @Override
-    protected void increaseDelete(Object index) {
-        resumeArrayList.remove(((Integer) index).intValue());
+    protected void executeDelete(Object index) {
+        listStorage.remove(((Integer) index).intValue());
     }
 
     @Override
-    protected Resume increaseGet(Object index) {
-        return resumeArrayList.get((Integer) index);
+    protected Resume executeGet(Object index) {
+        return listStorage.get((Integer) index);
     }
 
     @Override
-    protected Integer increaseGetIndex(String uuid) {
-        for (int i = 0; i < resumeArrayList.size(); i++) {
-            if (resumeArrayList.get(i).getUuid().equals(uuid)) {
+    protected Integer executeSearchIndex(String uuid) {
+        for (int i = 0; i < listStorage.size(); i++) {
+            if (listStorage.get(i).getUuid().equals(uuid)) {
                 return i;
             }
         }
@@ -54,7 +53,7 @@ public class ListStorage extends AbstractStorage {
     }
 
     @Override
-    protected boolean existIncrease(Object index) {
+    protected boolean executeSearchExistResume(Object index) {
         return index != null;
     }
 }
