@@ -53,7 +53,7 @@ public abstract class AbstractArrayStorage extends AbstractStorage {
     }
 
     @Override
-    protected boolean executeSearchExistResume(Object index) {
+    protected boolean isExist(Object index) {
         return (Integer) index >= 0;
     }
 
@@ -61,5 +61,5 @@ public abstract class AbstractArrayStorage extends AbstractStorage {
 
     protected abstract void insertElement(Resume resume, int index);
 
-    protected abstract Integer executeSearchIndex(String uuid);
+    protected abstract Integer searchIndex(String uuid);
 }

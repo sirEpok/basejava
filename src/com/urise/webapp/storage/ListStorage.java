@@ -43,7 +43,7 @@ public class ListStorage extends AbstractStorage {
     }
 
     @Override
-    protected Integer executeSearchIndex(String uuid) {
+    protected Integer searchIndex(String uuid) {
         for (int i = 0; i < listStorage.size(); i++) {
             if (listStorage.get(i).getUuid().equals(uuid)) {
                 return i;
@@ -53,7 +53,7 @@ public class ListStorage extends AbstractStorage {
     }
 
     @Override
-    protected boolean executeSearchExistResume(Object index) {
+    protected boolean isExist(Object index) {
         return index != null;
     }
 }
