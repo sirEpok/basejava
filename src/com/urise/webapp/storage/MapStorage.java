@@ -6,7 +6,7 @@ import java.util.Map;
 import java.util.TreeMap;
 
 public class MapStorage extends AbstractStorage {
-    private Map<String, Resume> mapStorage = new TreeMap<String, Resume>();
+    private Map<String, Resume> mapStorage = new TreeMap<>();
 
     @Override
     public int size() {
@@ -44,15 +44,8 @@ public class MapStorage extends AbstractStorage {
     }
 
     @Override
-    protected Integer searchIndex(String uuid) {
-        int i = 0;
-        for (Map.Entry e : mapStorage.entrySet()) {
-            if (uuid == e.getKey()) {
-                break;
-            }
-            i++;
-        }
-        return i;
+    protected String searchKey(String uuid) {
+        return uuid;
     }
 
     @Override
