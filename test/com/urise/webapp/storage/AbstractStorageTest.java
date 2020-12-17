@@ -2,9 +2,7 @@ package com.urise.webapp.storage;
 
 import com.urise.webapp.exception.ExistStorageException;
 import com.urise.webapp.exception.NotExistStorageException;
-import com.urise.webapp.exception.StorageException;
 import com.urise.webapp.model.Resume;
-import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -59,9 +57,9 @@ public abstract class AbstractStorageTest {
 
     @Test
     public void update() throws Exception {
-        Resume resume = new Resume(UUID_1, "New name");
+        Resume resume = new Resume(UUID_2, "Name1");
         storage.update(resume);
-        assertTrue(resume == storage.get(UUID_1));
+        assertEquals(resume, storage.get(UUID_2));
     }
 
     @Test(expected = NotExistStorageException.class)
@@ -73,14 +71,14 @@ public abstract class AbstractStorageTest {
     @Test
     public void getAll() throws Exception {
         List<Resume> list = storage.getAllSorted();
-        assertEquals(list, Arrays.asList(RESUME_1, RESUME_2, RESUME_3));
+        assertEquals(Arrays.asList(RESUME_1, RESUME_2, RESUME_3), list);
     }
 
     @Test
     public void save() throws Exception {
         storage.save(RESUME_4);
         assertEquals(4, storage.size());
-        //assertEquals(RESUME_4, storage.get(RESUME_4.getUuid()));
+        assertEquals(RESUME_4, storage.get(UUID_4));
     }
 
     @Test(expected = ExistStorageException.class)

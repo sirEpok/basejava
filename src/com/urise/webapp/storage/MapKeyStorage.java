@@ -7,57 +7,51 @@ import java.util.List;
 import java.util.Map;
 import java.util.TreeMap;
 
-public class MapUuidStorage extends ArrayStorage {
-    private Map<String, Resume> mapUuidStorage = new TreeMap<>();
+public class MapKeyStorage extends AbstractStorage {
+    private Map<String, Resume> mapKeyStorage = new TreeMap<>();
 
     @Override
     public int size() {
-        return mapUuidStorage.size();
+        return mapKeyStorage.size();
     }
 
     @Override
     public void clear() {
-        mapUuidStorage.clear();
+        mapKeyStorage.clear();
     }
 
     @Override
     protected void executeUpdate(Object uuid, Resume resume) {
-        mapUuidStorage.put((String) uuid, resume);
+        mapKeyStorage.put((String) uuid, resume);
     }
 
     @Override
-    public List<Resume> executeCopySorted() {
-        return new ArrayList<>(mapUuidStorage.values());
+    public List<Resume> executeCopySortedList() {
+        return new ArrayList<>(mapKeyStorage.values());
     }
 
     @Override
     protected void executeSave(Object uuid, Resume resume) {
-        mapUuidStorage.put((String) uuid, resume);
+        mapKeyStorage.put((String) uuid, resume);
     }
 
     @Override
     public void executeDelete(Object uuid) {
-        mapUuidStorage.remove(uuid);
+        mapKeyStorage.remove(uuid);
     }
 
     @Override
     public Resume executeGet(Object uuid) {
-        return mapUuidStorage.get(uuid);
+        return mapKeyStorage.get(uuid);
     }
 
     @Override
-    protected Integer searchKey(String uuid) {
-        return Integer.valueOf(uuid);
+    protected String searchKey(String uuid) {
+        return uuid;
     }
 
     @Override
     protected boolean isExist(Object uuid) {
-        return mapUuidStorage.containsKey((String) uuid);
+        return mapKeyStorage.containsKey(uuid);
     }
-
-
-
-
-
-
 }

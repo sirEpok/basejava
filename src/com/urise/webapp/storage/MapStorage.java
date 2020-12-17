@@ -26,7 +26,7 @@ public class MapStorage extends AbstractStorage {
     }
 
     @Override
-    public List<Resume> executeCopySorted() {
+    public List<Resume> executeCopySortedList() {
         return new ArrayList<>(mapStorage.values());
     }
 

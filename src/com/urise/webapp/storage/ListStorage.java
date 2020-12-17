@@ -23,7 +23,7 @@ public class ListStorage extends AbstractStorage {
     }
 
     @Override
-    public List<Resume> executeCopySorted() {
+    public List<Resume> executeCopySortedList() {
         return new ArrayList<>(listStorage);
     }
 
