@@ -21,8 +21,8 @@ public class MapSearchKeyUuidStorage extends AbstractStorage {
     }
 
     @Override
-    protected void executeUpdate(Object r, Resume resume) {
-        mapKeyStorage.put(resume.getUuid(), resume);
+    protected void executeUpdate(Object uuid, Resume resume) {
+        mapKeyStorage.replace(String.valueOf(uuid), resume);
     }
 
     @Override
@@ -31,27 +31,27 @@ public class MapSearchKeyUuidStorage extends AbstractStorage {
     }
 
     @Override
-    protected void executeSave(Object r, Resume resume) {
-        mapKeyStorage.put(resume.getUuid(), resume);
+    protected void executeSave(Object uuid, Resume resume) {
+        mapKeyStorage.put(String.valueOf(uuid), resume);
     }
 
     @Override
-    public void executeDelete(Object resume) {
-        mapKeyStorage.remove(((Resume) resume).getUuid());
+    public void executeDelete(Object uuid) {
+        mapKeyStorage.remove(uuid);
     }
 
     @Override
-    public Resume executeGet(Object resume) {
-        return (Resume) resume;
-    }
-
-    @Override
-    protected Resume searchKey(String uuid) {
+    public Resume executeGet(Object uuid) {
         return mapKeyStorage.get(uuid);
     }
 
     @Override
-    protected boolean isExist(Object resume) {
-        return resume != null;
+    protected String searchKey(String uuid) {
+        return uuid;
+    }
+
+    @Override
+    protected boolean isExist(Object uuid) {
+        return mapKeyStorage.containsKey(uuid);
     }
 }
