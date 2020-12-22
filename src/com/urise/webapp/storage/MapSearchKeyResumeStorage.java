@@ -7,7 +7,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.TreeMap;
 
-public class MapStorage extends AbstractStorage {
+public class MapSearchKeyResumeStorage extends AbstractStorage {
     private Map<String, Resume> mapStorage = new TreeMap<>();
 
     @Override

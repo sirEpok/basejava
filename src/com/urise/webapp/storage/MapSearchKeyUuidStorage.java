@@ -7,7 +7,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.TreeMap;
 
-public class MapKeyStorage extends AbstractStorage {
+public class MapSearchKeyUuidStorage extends AbstractStorage {
     private Map<String, Resume> mapKeyStorage = new TreeMap<>();
 
     @Override
@@ -21,8 +21,8 @@ public class MapKeyStorage extends AbstractStorage {
     }
 
     @Override
-    protected void executeUpdate(Object uuid, Resume resume) {
-        mapKeyStorage.put((String) uuid, resume);
+    protected void executeUpdate(Object r, Resume resume) {
+        mapKeyStorage.put(resume.getUuid(), resume);
     }
 
     @Override
@@ -31,27 +31,27 @@ public class MapKeyStorage extends AbstractStorage {
     }
 
     @Override
-    protected void executeSave(Object uuid, Resume resume) {
-        mapKeyStorage.put((String) uuid, resume);
+    protected void executeSave(Object r, Resume resume) {
+        mapKeyStorage.put(resume.getUuid(), resume);
     }
 
     @Override
-    public void executeDelete(Object uuid) {
-        mapKeyStorage.remove(uuid);
+    public void executeDelete(Object resume) {
+        mapKeyStorage.remove(((Resume) resume).getUuid());
     }
 
     @Override
-    public Resume executeGet(Object uuid) {
+    public Resume executeGet(Object resume) {
+        return (Resume) resume;
+    }
+
+    @Override
+    protected Resume searchKey(String uuid) {
         return mapKeyStorage.get(uuid);
     }
 
     @Override
-    protected String searchKey(String uuid) {
-        return uuid;
-    }
-
-    @Override
-    protected boolean isExist(Object uuid) {
-        return mapKeyStorage.containsKey(uuid);
+    protected boolean isExist(Object resume) {
+        return resume != null;
     }
 }
