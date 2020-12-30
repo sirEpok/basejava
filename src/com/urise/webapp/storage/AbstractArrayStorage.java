@@ -6,7 +6,7 @@ import com.urise.webapp.model.Resume;
 import java.util.Arrays;
 import java.util.List;
 
-public abstract class AbstractArrayStorage extends AbstractStorage {
+public abstract class AbstractArrayStorage extends AbstractStorage<Integer> {
     protected static final int STORAGE_LIMIT = 10_000;
 
     protected Resume[] storage = new Resume[STORAGE_LIMIT];
@@ -22,40 +22,40 @@ public abstract class AbstractArrayStorage extends AbstractStorage {
     }
 
     @Override
-    protected void executeUpdate(Object index,Resume resume) {
-        storage[(Integer) index] = resume;
+    protected void executeUpdate(Integer index, Resume resume) {
+        storage[index] = resume;
     }
 
     /**
      * @return array, contains only Resumes in storage (without null)
      */
-    public List<Resume> executeCopySortedList() {
+    public List<Resume> getResumeList() {
         return Arrays.asList(Arrays.copyOf(storage, size));
     }
 
     @Override
-    protected void executeSave(Object index, Resume resume) {
+    protected void executeSave(Integer index, Resume resume) {
         if (size == STORAGE_LIMIT) {
             throw new StorageException("Storage overflow", resume.getUuid());
         }
-        insertElement(resume, (Integer)index);
+        insertElement(resume, index);
         size++;
     }
 
     @Override
-    public void executeDelete(Object index) {
-        fillDeletedElement((Integer) index);
+    public void executeDelete(Integer index) {
+        fillDeletedElement(index);
         storage[size - 1] = null;
         size--;
     }
 
-    public Resume executeGet(Object index) {
-        return storage[(Integer) index];
+    public Resume executeGet(Integer index) {
+        return storage[index];
     }
 
     @Override
-    protected boolean isExist(Object index) {
-        return (Integer) index >= 0;
+    protected boolean isExist(Integer index) {
+        return index >= 0;
     }
 
     protected abstract void fillDeletedElement(int index);

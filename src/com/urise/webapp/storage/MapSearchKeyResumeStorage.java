@@ -2,13 +2,10 @@ package com.urise.webapp.storage;
 
 import com.urise.webapp.model.Resume;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
-import java.util.TreeMap;
+import java.util.*;
 
-public class MapSearchKeyResumeStorage extends AbstractStorage {
-    private Map<String, Resume> mapStorage = new TreeMap<>();
+public class MapSearchKeyResumeStorage extends AbstractStorage<Resume> {
+    private Map<String, Resume> mapStorage = new HashMap<>();
 
     @Override
     public int size() {
@@ -21,28 +18,28 @@ public class MapSearchKeyResumeStorage extends AbstractStorage {
     }
 
     @Override
-    protected void executeUpdate(Object r, Resume resume) {
+    protected void executeUpdate(Resume r, Resume resume) {
         mapStorage.put(resume.getUuid(), resume);
     }
 
     @Override
-    public List<Resume> executeCopySortedList() {
+    public List<Resume> getResumeList() {
         return new ArrayList<>(mapStorage.values());
     }
 
     @Override
-    protected void executeSave(Object r, Resume resume) {
+    protected void executeSave(Resume r, Resume resume) {
         mapStorage.put(resume.getUuid(), resume);
     }
 
     @Override
-    protected void executeDelete(Object resume) {
-        mapStorage.remove(((Resume) resume).getUuid());
+    protected void executeDelete(Resume resume) {
+        mapStorage.remove((resume).getUuid());
     }
 
     @Override
-    protected Resume executeGet(Object resume) {
-        return (Resume) resume;
+    protected Resume executeGet(Resume resume) {
+        return resume;
     }
 
     @Override
@@ -51,7 +48,7 @@ public class MapSearchKeyResumeStorage extends AbstractStorage {
     }
 
     @Override
-    protected boolean isExist(Object resume) {
+    protected boolean isExist(Resume resume) {
         return resume != null;
     }
 }
