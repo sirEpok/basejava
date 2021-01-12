@@ -1,11 +1,16 @@
 package com.urise.webapp.model;
 
+import java.util.Arrays;
 import java.util.List;
 
-public class ComplexSection extends Section {
+public class Organization extends AbstractSection {
     private final List<Experience> experiences;
 
-    public ComplexSection(List<Experience> experiences) {
+    public Organization(Experience... experiences) {
+        this(Arrays.asList(experiences));
+    }
+
+    public Organization(List<Experience> experiences) {
         this.experiences = experiences;
     }
 
@@ -18,7 +23,7 @@ public class ComplexSection extends Section {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
 
-        ComplexSection obj = (ComplexSection) o;
+        Organization obj = (Organization) o;
 
         return experiences.equals(obj.experiences);
     }

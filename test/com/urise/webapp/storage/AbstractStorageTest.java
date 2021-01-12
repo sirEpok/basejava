@@ -1,8 +1,9 @@
 package com.urise.webapp.storage;
 
+import com.urise.webapp.ResumeTestData;
 import com.urise.webapp.exception.ExistStorageException;
 import com.urise.webapp.exception.NotExistStorageException;
-import com.urise.webapp.model.Resume;
+import com.urise.webapp.model.*;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -30,7 +31,7 @@ public abstract class AbstractStorageTest {
         RESUME_2 = new Resume(UUID_2, "Name2");
         RESUME_3 = new Resume(UUID_3, "Name3");
         RESUME_4 = new Resume(UUID_4, "Name4");
-    }
+     }
 
     protected AbstractStorageTest(Storage storage) {
         this.storage = storage;
@@ -106,5 +107,12 @@ public abstract class AbstractStorageTest {
     @Test(expected = NotExistStorageException.class)
     public void getNotExist() throws Exception {
         storage.get("dummy");
+    }
+
+    @Test
+    public void mockTestData() throws Exception {
+        ResumeTestData rtd = new ResumeTestData();
+        System.out.println(rtd.mockData("123", "Anton").contacts);
+        System.out.println(rtd.mockData("123", "Anton").sections);
     }
 }
