@@ -33,11 +33,11 @@ public class ResumeTestData {
         List<Organization> work = new ArrayList<>();
         work.add(new Organization(new Link("Test", "http://test.ru/"),
                 new ArrayList<Experience.Position>() {{
-                    add((new Experience.Position(1985, Month.APRIL, 1990, Month.FEBRUARY, "Test", "test")));
+                    add((new Experience.Position(1985, Month.APRIL, 1990, Month.FEBRUARY, "Test", "Test")));
                 }}));
         work.add(new Organization(new Link("Test", "http://test.ru/"),
                 new ArrayList<Experience.Position>() {{
-                    add(new Experience.Position(1990, Month.AUGUST,"Это лучшая работа в мире", "Бог")) ;
+                    add(new Experience.Position(1990, Month.AUGUST,"Test", "Test")) ;
                 }}));
         OrganizationList listOrg = new OrganizationList(work);
         positions.put(SectionType.EXPERIENCE, listOrg);
