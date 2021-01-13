@@ -44,7 +44,11 @@ public class ResumeTestData {
         work = new ArrayList<>();
         work.add(new Organization(new Link("Test", "http://test.ru/"),
                 new ArrayList<Experience.Position>() {{
-                    add(new Experience.Position(1980, Month.SEPTEMBER, "Test", "Test"));
+                    add(new Experience.Position(1980, Month.SEPTEMBER, 1983, Month.AUGUST, "Test", "Test"));
+                }}));
+        work.add(new Organization(new Link("Test", "http://test.ru/"),
+                new ArrayList<Experience.Position>() {{
+                    add(new Experience.Position(1983, Month.SEPTEMBER, 1985, Month.DECEMBER, "Test", "Test"));
                 }}));
         positions.put(SectionType.EDUCATION, new OrganizationList(work));
         resume.setSections(positions);
