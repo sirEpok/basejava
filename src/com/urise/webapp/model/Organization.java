@@ -1,40 +1,46 @@
 package com.urise.webapp.model;
 
-import java.util.Arrays;
 import java.util.List;
+import java.util.Objects;
 
 public class Organization extends AbstractSection {
-    private final List<Experience> experiences;
+    private Link homePage;
+    private List<Experience.Position> places;
 
-    public Organization(Experience... experiences) {
-        this(Arrays.asList(experiences));
+    public Organization(List<Organization> institutions) {
     }
 
-    public Organization(List<Experience> experiences) {
-        this.experiences = experiences;
+    public Organization(Link homePage, List<Experience.Position> places) {
+        this.homePage = homePage;
+        this.places = places;
     }
 
-    public List<Experience> getExperiences() {
-        return experiences;
+    public Link getHomePage() {
+        return homePage;
+    }
+
+    public List<Experience.Position> getPlaces() {
+        return places;
     }
 
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-
-        Organization obj = (Organization) o;
-
-        return experiences.equals(obj.experiences);
+        Organization that = (Organization) o;
+        return Objects.equals(homePage, that.homePage) && Objects.equals(places, that.places);
     }
 
     @Override
     public int hashCode() {
-        return experiences.hashCode();
+        return Objects.hash(homePage, places);
     }
 
     @Override
     public String toString() {
-        return experiences.toString();
+        return "Организация(" +
+                "Ссылка=" + homePage +
+                ", место=" + places +
+                ')';
     }
 }

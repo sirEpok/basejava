@@ -1,29 +1,66 @@
 package com.urise.webapp;
 
 import com.urise.webapp.model.*;
+import com.urise.webapp.storage.OrganizationList;
 
 import java.time.Month;
-import java.util.Arrays;
-import java.util.Collections;
+import java.util.*;
 
 public class ResumeTestData {
-    public Resume mockData(String uuid, String fullName) {
-        Resume resumeTest = new Resume(uuid, fullName);
+    public static Resume mockData(String uuid, String fullName) {
+        Resume resume = new Resume(uuid, fullName);
 
-        resumeTest.addContact(ContactType.PHONE, "+7(954)35348");
-        resumeTest.addContact(ContactType.SKYPE, "qwert");
-        resumeTest.addContact(ContactType.E_MAIL, "test@test.com");
-        resumeTest.addContact(ContactType.LINKED_IN,"test");
-        resumeTest.addContact(ContactType.GIT_HUB, "test");
-        resumeTest.addContact(ContactType.STACKOVERFLOW, "test");
+        Map<ContactType, String> contact = new LinkedHashMap<>();
+        contact.put(ContactType.PHONE, "1(234)567-8910");
+        contact.put(ContactType.SKYPE, "test");
+        contact.put(ContactType.E_MAIL, "test@test.ru");
+        contact.put(ContactType.LINKED_IN, "Профиль LinkedIn");
+        contact.put(ContactType.GIT_HUB, "Профиль GitHub");
+        contact.put(ContactType.STACKOVERFLOW, "Профиль Stackoverflow");
+        contact.put(ContactType.HOME_PAGE, "Домашняя страница");
 
-        resumeTest.addSection(SectionType.PERSONAL, new TextSection("Тестовый"));
-        resumeTest.addSection(SectionType.OBJECTIVE, new TextSection("test"));
-        resumeTest.addSection(SectionType.ACHIEVEMENT, new ListSection(Arrays.asList("test1", "test2", "test3")));
-        resumeTest.addSection(SectionType.QUALIFICATIONS, new ListSection(Arrays.asList("test1", "test2", "test3")));
-        resumeTest.addSection(SectionType.EXPERIENCE, new Organization(
-                Collections.singletonList(new Experience("Test1", "www:\\test1.ru",
-                        new Experience.Position(1990, Month.JANUARY, "test1", "test1")))));
-        return resumeTest;
+        resume.setContacts(contact);
+
+        Map<SectionType, AbstractSection> positions = new LinkedHashMap<>();
+        positions.put(SectionType.OBJECTIVE, new TextSection("Младший специалист"));
+        positions.put(SectionType.PERSONAL, new TextSection("Самостоятельный"));
+        positions.put(SectionType.ACHIEVEMENT, new ListSection(new ArrayList<String>() {{
+            add("Разобрался самостоятельно в Bootstrap");
+        }}));
+        positions.put(SectionType.QUALIFICATIONS, new ListSection(new ArrayList<String>() {{
+            add("Java SE");
+        }}));
+        List<Organization> work = new ArrayList<>();
+        work.add(new Organization(new Link("Test", "http://test.ru/"),
+                new ArrayList<Experience.Position>() {{
+                    add((new Experience.Position(1985, Month.APRIL, 1990, Month.FEBRUARY, "Test", "test")));
+                }}));
+        work.add(new Organization(new Link("Test", "http://test.ru/"),
+                new ArrayList<Experience.Position>() {{
+                    add(new Experience.Position(1990, Month.AUGUST,"Это лучшая работа в мире", "Бог")) ;
+                }}));
+        OrganizationList listOrg = new OrganizationList(work);
+        positions.put(SectionType.EXPERIENCE, listOrg);
+        work = new ArrayList<>();
+        work.add(new Organization(new Link("Test", "http://test.ru/"),
+                new ArrayList<Experience.Position>() {{
+                    add(new Experience.Position(1980, Month.SEPTEMBER, "Test", "Test"));
+                }}));
+        positions.put(SectionType.EDUCATION, new OrganizationList(work));
+        resume.setSections(positions);
+        return resume;
+    }
+
+    public static void main(String[] args) {
+        Resume resume = mockData("1","Григорий");
+
+        for (ContactType contactType : ContactType.values()) {
+            System.out.println(contactType.getTitle() + " : " + resume.getContacts().get(contactType));
+        }
+        System.out.println();
+        for (SectionType sectionType : SectionType.values()) {
+            System.out.println(sectionType.getTitle());
+            System.out.println(resume.getSections().get(sectionType));
+        }
     }
 }

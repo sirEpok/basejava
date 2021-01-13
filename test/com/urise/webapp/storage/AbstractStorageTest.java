@@ -27,11 +27,11 @@ public abstract class AbstractStorageTest {
     private static final Resume RESUME_4;
 
     static {
-        RESUME_1 = new Resume(UUID_1, "Name1");
-        RESUME_2 = new Resume(UUID_2, "Name2");
-        RESUME_3 = new Resume(UUID_3, "Name3");
-        RESUME_4 = new Resume(UUID_4, "Name4");
-     }
+        RESUME_1 = ResumeTestData.mockData(UUID_1, "Алексей Казанкин");
+        RESUME_2 = ResumeTestData.mockData(UUID_2, "Антон Бажин");
+        RESUME_3 = ResumeTestData.mockData(UUID_3, "Юрий Аверьянов");
+        RESUME_4 = ResumeTestData.mockData(UUID_4, "Никита Джигурда");
+    }
 
     protected AbstractStorageTest(Storage storage) {
         this.storage = storage;
