@@ -46,9 +46,10 @@ public class ResumeTestData {
                 new ArrayList<Experience.Position>() {{
                     add(new Experience.Position(1980, Month.SEPTEMBER, 1983, Month.AUGUST, "Test", "Test"));
                 }}));
-        work.add(new Organization(new Link("Test", "http://test.ru/"),
+        work.add(new Organization(new Link("Санкт-Петербургский национальный исследовательский университет информационных технологий, механики и оптики", "http://test.ru/"),
                 new ArrayList<Experience.Position>() {{
-                    add(new Experience.Position(1983, Month.SEPTEMBER, 1985, Month.DECEMBER, "Test", "Test"));
+                    add(new Experience.Position(1987, Month.SEPTEMBER, 1993, Month.JULY, "Инженер", "программист Fortran, C"));
+                    add(new Experience.Position(1993, Month.SEPTEMBER, 1996, Month.JULY, "Аспирантура", "программист С, С++"));
                 }}));
         positions.put(SectionType.EDUCATION, new OrganizationList(work));
         resume.setSections(positions);
