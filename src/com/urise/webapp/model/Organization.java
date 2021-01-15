@@ -4,6 +4,8 @@ import java.util.List;
 import java.util.Objects;
 
 public class Organization extends AbstractSection {
+    private static final long serialVersionUID = 1L;
+
     private Link homePage;
     private List<Experience.Position> places;
 

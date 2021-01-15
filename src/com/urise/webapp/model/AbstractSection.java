@@ -1,4 +1,6 @@
 package com.urise.webapp.model;
 
-public abstract class AbstractSection {
+import java.io.Serializable;
+
+abstract public class AbstractSection implements Serializable {
 }

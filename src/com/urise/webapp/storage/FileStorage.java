@@ -2,18 +2,21 @@ package com.urise.webapp.storage;
 
 import com.urise.webapp.exception.StorageException;
 import com.urise.webapp.model.Resume;
+import com.urise.webapp.storage.serializer.StreamSerializer;
 
-import java.io.File;
-import java.io.IOException;
+import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
-public abstract class AbstractFileStorage extends AbstractStorage<File> {
+public class FileStorage extends AbstractStorage<File> {
     private File directory;
 
-    protected AbstractFileStorage(File directory) {
+    private StreamSerializer streamSerializer;
+
+    protected FileStorage(File directory, StreamSerializer streamSerializer) {
         Objects.requireNonNull(directory, "Каталог не должен быть пустым");
+        this.streamSerializer = streamSerializer;
         if (!directory.isDirectory()) {
             throw new IllegalArgumentException(directory.getAbsolutePath() + " не каталог");
         }
@@ -26,7 +29,7 @@ public abstract class AbstractFileStorage extends AbstractStorage<File> {
     @Override
     protected void executeUpdate(File file, Resume resume) {
         try {
-            doWrite(resume, file);
+            streamSerializer.executeWrite(resume, new BufferedOutputStream(new FileOutputStream(file)));
         } catch (IOException e) {
             throw new StorageException("Ошибка записи файла", resume.getUuid(), e);
         }
@@ -42,10 +45,6 @@ public abstract class AbstractFileStorage extends AbstractStorage<File> {
         executeUpdate(file, resume);
     }
 
-    protected abstract void doWrite(Resume resume, File file) throws IOException;
-
-    protected abstract Resume doRead(File file) throws IOException;
-
     @Override
     protected void executeDelete(File file) {
         if (!file.delete()) {
@@ -56,7 +55,7 @@ public abstract class AbstractFileStorage extends AbstractStorage<File> {
     @Override
     protected Resume executeGet(File file) {
         try {
-            return doRead(file);
+            return streamSerializer.executeRead(new BufferedInputStream(new FileInputStream(file)));
         } catch (IOException e) {
             throw new StorageException("Ошибка чтения файла", file.getName(), e);
         }
@@ -76,7 +75,7 @@ public abstract class AbstractFileStorage extends AbstractStorage<File> {
     protected List<Resume> getResumeList() {
         File[] files = directory.listFiles();
         if (files == null) {
-            throw new StorageException("Ошибка чтения каталога", null);
+            throw new StorageException("Ошибка чтения каталога");
         }
         List<Resume> list = new ArrayList<>(files.length);
         for (File file : files) {
@@ -99,7 +98,7 @@ public abstract class AbstractFileStorage extends AbstractStorage<File> {
     public int size() {
         String[] list = directory.list();
         if (list == null) {
-            throw new StorageException("Ошибка чтения каталога", null);
+            throw new StorageException("Ошибка чтения каталога");
         }
         return list.length;
     }

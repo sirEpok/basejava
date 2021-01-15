@@ -10,6 +10,8 @@ import org.junit.runners.Suite;
         MapSearchKeyUuidStorageTest.class,
         MapSearchKeyResumeStorageTest.class,
         SortedArrayStorageTest.class,
+        ObjectPathStorageTest.class,
+        ObjectFileStorageTest.class
 })
 public class SuiteClassTest {
 }

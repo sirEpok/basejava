@@ -30,19 +30,19 @@ public class MainFile {
             throw new RuntimeException(e);
         }
 
-        printDirectoryDeeply(dir);
+        printDirectoryDeeply(dir, "");
     }
 
-    public static void printDirectoryDeeply(File dir) {
+    public static void printDirectoryDeeply(File dir, String offset) {
         File[] files = dir.listFiles();
 
         if (files != null) {
             for (File file : files) {
                 if (file.isFile()) {
-                    System.out.println("Файл: " + file.getName());
+                    System.out.println(offset + "Файл: " + file.getName());
                 } else if (file.isDirectory()) {
-                    System.out.println("Каталог: " + file.getName());
-                    printDirectoryDeeply(file);
+                    System.out.println(offset + "Каталог: " + file.getName());
+                    printDirectoryDeeply(file, offset + "  ");
                 }
             }
         }
