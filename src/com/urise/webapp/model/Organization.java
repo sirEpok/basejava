@@ -38,9 +38,6 @@ public class Organization extends AbstractSection {
 
     @Override
     public String toString() {
-        return "Организация(" +
-                "Ссылка=" + homePage +
-                ", место=" + places +
-                ')';
+        return "Организация(" + homePage + ", " + places + ')';
     }
 }

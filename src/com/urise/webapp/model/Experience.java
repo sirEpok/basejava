@@ -102,7 +102,7 @@ public class Experience {
 
         @Override
         public String toString() {
-            return "Позиция (" + startDate + " - " + endDate + ", " + title + ", " + description + ")";
+            return "Позиция (с " + startDate + " по " + endDate + ", " + title + ", " + description + ")";
         }
     }
 }
