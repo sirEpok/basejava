@@ -1,5 +1,7 @@
 package com.urise.webapp.model;
 
+import java.util.Objects;
+
 public class TextSection extends AbstractSection {
     private static final long serialVersionUID = 1L;
 
@@ -22,14 +24,12 @@ public class TextSection extends AbstractSection {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-
-        TextSection obj = (TextSection) o;
-
-        return content.equals(obj.content);
+        TextSection that = (TextSection) o;
+        return Objects.equals(content, that.content);
     }
 
     @Override
     public int hashCode() {
-        return content.hashCode();
+        return Objects.hash(content);
     }
 }

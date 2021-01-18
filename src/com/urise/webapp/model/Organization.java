@@ -30,7 +30,8 @@ public class Organization extends AbstractSection {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Organization that = (Organization) o;
-        return Objects.equals(homePage, that.homePage) && Objects.equals(places, that.places);
+        return Objects.equals(homePage, that.homePage) &&
+                Objects.equals(places, that.places);
     }
 
     @Override

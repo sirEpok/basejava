@@ -5,9 +5,12 @@ import com.urise.webapp.model.Resume;
 import com.urise.webapp.storage.serializer.StreamSerializer;
 
 import java.io.*;
+import java.nio.file.Files;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 public class FileStorage extends AbstractStorage<File> {
     private File directory;
@@ -73,33 +76,24 @@ public class FileStorage extends AbstractStorage<File> {
 
     @Override
     protected List<Resume> getResumeList() {
-        File[] files = directory.listFiles();
-        if (files == null) {
-            throw new StorageException("Ошибка чтения каталога");
-        }
-        List<Resume> list = new ArrayList<>(files.length);
-        for (File file : files) {
-            list.add(executeGet(file));
-        }
-        return list;
+        return Stream.of(getFiles()).map(this::executeGet).collect(Collectors.toList());
     }
 
     @Override
     public void clear() {
-        File[] files = directory.listFiles();
-        if (files != null) {
-            for (File file : files) {
-                executeDelete(file);
-            }
-        }
+        Stream.of(getFiles()).forEach(this::executeDelete);
     }
 
     @Override
     public int size() {
-        String[] list = directory.list();
-        if (list == null) {
+        return (int) Stream.of(getFiles()).count();
+    }
+
+    public File[] getFiles() {
+        File[] files = directory.listFiles();
+        if (files == null) {
             throw new StorageException("Ошибка чтения каталога");
         }
-        return list.length;
+        return files;
     }
 }

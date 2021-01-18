@@ -30,11 +30,9 @@ public class Experience implements Serializable {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-
-        Experience obj = (Experience) o;
-
-        return Objects.equals(workLink, obj.workLink) && Objects.equals(positions, obj.positions);
-
+        Experience that = (Experience) o;
+        return Objects.equals(workLink, that.workLink) &&
+                Objects.equals(positions, that.positions);
     }
 
     @Override
