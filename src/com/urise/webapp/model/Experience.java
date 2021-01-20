@@ -1,5 +1,10 @@
 package com.urise.webapp.model;
 
+import com.urise.webapp.util.LocalDateAdapter;
+
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 import java.io.Serializable;
 import java.time.LocalDate;
 import java.time.Month;
@@ -11,11 +16,15 @@ import java.util.Objects;
 import static com.urise.webapp.util.DateUtil.NOW;
 import static com.urise.webapp.util.DateUtil.of;
 
+@XmlAccessorType(XmlAccessType.FIELD)
 public class Experience implements Serializable {
     private static final long serialVersionUID = 1L;
 
-    private final Link workLink;
-    private List<Position> positions = new ArrayList<>();
+    private Link workLink;
+    private List<Position> positions;
+
+    public Experience() {
+    }
 
     public Experience(String name, String url, Position... positions) {
         this(new Link(name, url), Arrays.asList(positions));
@@ -24,6 +33,14 @@ public class Experience implements Serializable {
     public Experience(Link workLink, List<Position> positions) {
         this.workLink = workLink;
         this.positions = positions;
+    }
+
+    public Link getWorkLink() {
+        return workLink;
+    }
+
+    public List<Position> getPositions() {
+        return positions;
     }
 
     @Override
@@ -45,8 +62,11 @@ public class Experience implements Serializable {
         return "Организация (" + workLink + ", " + positions + ")";
     }
 
-    public static class Position implements Serializable{
+    @XmlAccessorType(XmlAccessType.FIELD)
+    public static class Position implements Serializable {
+        @XmlJavaTypeAdapter(LocalDateAdapter.class)
         private LocalDate startDate;
+        @XmlJavaTypeAdapter(LocalDateAdapter.class)
         private LocalDate endDate;
         private String title;
         private String description;

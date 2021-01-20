@@ -1,13 +1,19 @@
 package com.urise.webapp.model;
 
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
 import java.util.List;
 import java.util.Objects;
 
+@XmlAccessorType(XmlAccessType.FIELD)
 public class Organization extends AbstractSection {
     private static final long serialVersionUID = 1L;
 
     private Link homePage;
     private List<Experience.Position> places;
+
+    public Organization() {
+    }
 
     public Organization(List<Organization> institutions) {
     }
@@ -20,6 +26,7 @@ public class Organization extends AbstractSection {
     public Link getHomePage() {
         return homePage;
     }
+
 
     public List<Experience.Position> getPlaces() {
         return places;
