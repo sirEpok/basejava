@@ -2,33 +2,27 @@ package com.urise.webapp.model;
 
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Objects;
 
 @XmlAccessorType(XmlAccessType.FIELD)
 public class Organization extends AbstractSection {
     private static final long serialVersionUID = 1L;
-
-    private Link homePage;
-    private List<Experience.Position> places;
+    private List<Experience> places;
 
     public Organization() {
     }
 
-    public Organization(List<Organization> institutions) {
+    public Organization(Experience... places) {
+        this(Arrays.asList(places));
     }
 
-    public Organization(Link homePage, List<Experience.Position> places) {
-        this.homePage = homePage;
+    public Organization(List<Experience> places) {
         this.places = places;
     }
 
-    public Link getHomePage() {
-        return homePage;
-    }
-
-
-    public List<Experience.Position> getPlaces() {
+    public List<Experience> getPlaces() {
         return places;
     }
 
@@ -37,17 +31,16 @@ public class Organization extends AbstractSection {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Organization that = (Organization) o;
-        return Objects.equals(homePage, that.homePage) &&
-                Objects.equals(places, that.places);
+        return Objects.equals(places, that.places);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(homePage, places);
+        return Objects.hash(places);
     }
 
     @Override
     public String toString() {
-        return "Организация(" + homePage + ", " + places + ')';
+        return places.toString();
     }
 }

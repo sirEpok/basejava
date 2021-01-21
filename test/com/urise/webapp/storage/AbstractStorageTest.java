@@ -8,6 +8,8 @@ import org.junit.Before;
 import org.junit.Test;
 
 import java.io.File;
+import java.time.Month;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -30,10 +32,38 @@ public abstract class AbstractStorageTest {
     private static final Resume RESUME_4;
 
     static {
-        RESUME_1 = ResumeTestData.mockData(UUID_1, "Алексей Казанкин");
-        RESUME_2 = ResumeTestData.mockData(UUID_2, "Антон Бажин");
-        RESUME_3 = ResumeTestData.mockData(UUID_3, "Юрий Аверьянов");
-        RESUME_4 = ResumeTestData.mockData(UUID_4, "Никита Джигурда");
+        RESUME_1 = ResumeTestData.mockData(UUID_1, "Name1");
+        RESUME_2 = ResumeTestData.mockData(UUID_2, "Name2");
+        RESUME_3 = ResumeTestData.mockData(UUID_3, "Name3");
+        RESUME_4 = ResumeTestData.mockData(UUID_4, "Name4");
+
+        RESUME_1.setContact(ContactType.PHONE, "phone number");
+        RESUME_1.setContact(ContactType.SKYPE, "skype");
+        RESUME_1.setContact(ContactType.E_MAIL, "email");
+        RESUME_1.setContact(ContactType.LINKED_IN, "linkedin");
+        RESUME_1.setContact(ContactType.GIT_HUB, "github");
+        RESUME_1.setContact(ContactType.STACKOVERFLOW, "stack-overflow");
+        RESUME_1.setContact(ContactType.HOME_PAGE, "home page1");
+
+        RESUME_1.setSection(SectionType.OBJECTIVE, new TextSection("Младший специалист"));
+        RESUME_1.setSection(SectionType.PERSONAL, new TextSection("Самостоятельный"));
+        RESUME_1.setSection(SectionType.ACHIEVEMENT, new ListSection(new ArrayList<String>() {{
+            add("Разобрался самостоятельно в Bootstrap");
+        }}));
+        RESUME_1.setSection(SectionType.QUALIFICATIONS, new ListSection(new ArrayList<String>() {{
+            add("Java SE");
+        }}));
+
+        RESUME_1.setSection(SectionType.EXPERIENCE, new Organization(
+                new Experience("Test", "http://test.ru/",
+                        new Experience.Position(1985, Month.APRIL, 1990, Month.FEBRUARY, "Test", "Test")),
+                new Experience("Test", "http://test.ru/",
+                        new Experience.Position(1990, Month.AUGUST, "Test", "Test"))));
+
+        RESUME_1.setSection(SectionType.EDUCATION, new Organization(
+                new Experience("Санкт-Петербургский национальный исследовательский университет информационных технологий, механики и оптики", "https://itmo.ru/ru/",
+                        new Experience.Position(1987, Month.SEPTEMBER, 1993, Month.JULY, "Инженер", "программист Fortran, C"),
+                        new Experience.Position(1993, Month.SEPTEMBER, 1996, Month.JULY, "Аспирантура", "программист С, С++"))));
     }
 
     protected AbstractStorageTest(Storage storage) {
@@ -94,7 +124,7 @@ public abstract class AbstractStorageTest {
     public void delete() throws Exception {
         storage.delete(UUID_3);
         assertEquals(2, storage.size());
-        assertNull(storage.get(UUID_3));
+        storage.get(UUID_3);
     }
 
     @Test(expected = NotExistStorageException.class)
@@ -112,10 +142,10 @@ public abstract class AbstractStorageTest {
         storage.get("dummy");
     }
 
-    @Test
-    public void mockTestData() throws Exception {
-        ResumeTestData rtd = new ResumeTestData();
-        System.out.println(rtd.mockData("123", "Anton").contacts);
-        System.out.println(rtd.mockData("123", "Anton").sections);
-    }
+//    @Test
+//    public void mockTestData() throws Exception {
+//        ResumeTestData rtd = new ResumeTestData();
+//        System.out.println(rtd.mockData("123", "Anton").contacts);
+//        System.out.println(rtd.mockData("123", "Anton").sections);
+//    }
 }

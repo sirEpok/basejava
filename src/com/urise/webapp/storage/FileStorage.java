@@ -92,7 +92,7 @@ public class FileStorage extends AbstractStorage<File> {
     public File[] getFiles() {
         File[] files = directory.listFiles();
         if (files == null) {
-            throw new StorageException("Ошибка чтения каталога");
+            throw new StorageException("Ошибка чтения каталога", directory.getName());
         }
         return files;
     }

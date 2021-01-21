@@ -1,7 +1,6 @@
 package com.urise.webapp.storage.serializer;
 
 import com.urise.webapp.model.*;
-import com.urise.webapp.storage.OrganizationList;
 
 import java.io.*;
 import java.time.LocalDate;
@@ -37,10 +36,10 @@ public class DataStreamSerializer implements StreamSerializer {
                         break;
                     case EXPERIENCE:
                     case EDUCATION:
-                        writeCollection(dos, ((OrganizationList) section).getOrganizationList(), org -> {
-                            dos.writeUTF(org.getHomePage().getName());
-                            dos.writeUTF(org.getHomePage().getUrl());
-                            writeCollection(dos, org.getPlaces(), position -> {
+                        writeCollection(dos, ((Organization) section).getPlaces(), org -> {
+                            dos.writeUTF(org.getWorkLink().getName());
+                            dos.writeUTF(org.getWorkLink().getUrl());
+                            writeCollection(dos, org.getPositions(), position -> {
                                 writeLocalDate(dos, position.getStartDate());
                                 writeLocalDate(dos, position.getEndDate());
                                 dos.writeUTF(position.getTitle());
@@ -68,10 +67,10 @@ public class DataStreamSerializer implements StreamSerializer {
             String uuid = dis.readUTF();
             String fullName = dis.readUTF();
             Resume resume = new Resume(uuid, fullName);
-            readItems(dis, () -> resume.addContact(ContactType.valueOf(dis.readUTF()), dis.readUTF()));
+            readItems(dis, () -> resume.setContact(ContactType.valueOf(dis.readUTF()), dis.readUTF()));
             readItems(dis, () -> {
                 SectionType sectionType = SectionType.valueOf(dis.readUTF());
-                resume.addSection(sectionType, readSection(dis, sectionType));
+                resume.setSection(sectionType, readSection(dis, sectionType));
             });
             return resume;
         }
@@ -88,7 +87,7 @@ public class DataStreamSerializer implements StreamSerializer {
             case EXPERIENCE:
             case EDUCATION:
                 return new Organization(
-                        readList(dis, () -> new Organization(
+                        readList(dis, () -> new Experience(
                                 new Link(dis.readUTF(), dis.readUTF()),
                                 readList(dis, () -> new Experience.Position(
                                         readLocalDate(dis), readLocalDate(dis), dis.readUTF(), dis.readUTF()

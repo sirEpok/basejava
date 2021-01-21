@@ -8,7 +8,6 @@ import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 import java.io.Serializable;
 import java.time.LocalDate;
 import java.time.Month;
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Objects;
@@ -19,7 +18,6 @@ import static com.urise.webapp.util.DateUtil.of;
 @XmlAccessorType(XmlAccessType.FIELD)
 public class Experience implements Serializable {
     private static final long serialVersionUID = 1L;
-
     private Link workLink;
     private List<Position> positions;
 
@@ -64,6 +62,7 @@ public class Experience implements Serializable {
 
     @XmlAccessorType(XmlAccessType.FIELD)
     public static class Position implements Serializable {
+        private static final long serialVersionUID = 1L;
         @XmlJavaTypeAdapter(LocalDateAdapter.class)
         private LocalDate startDate;
         @XmlJavaTypeAdapter(LocalDateAdapter.class)
