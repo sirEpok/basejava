@@ -46,8 +46,8 @@ public class Experience implements Serializable {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Experience that = (Experience) o;
-        return Objects.equals(workLink, that.workLink) &&
-                Objects.equals(positions, that.positions);
+        return Objects.equals(workLink, that.workLink) ||
+               Objects.equals(positions, that.positions);
     }
 
     @Override
