@@ -85,7 +85,11 @@ public class Experience implements Serializable {
             this.startDate = startDate;
             this.endDate = endDate;
             this.title = title;
-            this.description = description;
+            if (description == null) {
+                this.description = "У поизиции нет описания";
+            } else {
+                this.description = description;
+            }
         }
 
         public LocalDate getStartDate() {

@@ -29,13 +29,13 @@ public class ResumeTestData {
         resume.setSection(SectionType.EXPERIENCE, new Organization(
                 new Experience("Test", "http://test.ru/",
                         new Experience.Position(1985, Month.APRIL, 1990, Month.FEBRUARY, "Test", "Test")),
-                new Experience("Test", "http://test.ru/",
+                new Experience("Test", null,
                         new Experience.Position(1990, Month.AUGUST, "Test", "Test"))));
 
         resume.setSection(SectionType.EDUCATION, new Organization(
                 new Experience("Санкт-Петербургский национальный исследовательский университет информационных технологий, механики и оптики", "https://itmo.ru/ru/",
                         new Experience.Position(1987, Month.SEPTEMBER, 1993, Month.JULY, "Инженер", "программист Fortran, C"),
-                        new Experience.Position(1993, Month.SEPTEMBER, 1996, Month.JULY, "Аспирантура", "программист С, С++"))));
+                        new Experience.Position(1993, Month.SEPTEMBER, 1996, Month.JULY, "Аспирантура", null))));
 
         return resume;
     }
