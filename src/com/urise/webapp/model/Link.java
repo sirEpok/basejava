@@ -17,11 +17,7 @@ public class Link implements Serializable {
 
     public Link(String name, String url) {
         this.name = name;
-        if (url == null) {
-            this.url = "У организации нет веб-странички";
-        } else {
-            this.url = url;
-        }
+        this.url = url == null ? "" : url;
     }
 
     public String getName() {
