@@ -10,17 +10,17 @@ public class DeadLock {
 
     static void runDeadlock(String firstLock, String secondLock) {
         new Thread(() -> {
-            System.out.println(firstLock + " поток ожидает");
             synchronized (firstLock) {
-                System.out.println(firstLock + " поток удерживает");
+                System.out.println(Thread.currentThread().getName() + " hold " + firstLock);
+                System.out.println(Thread.currentThread().getName() + " wait " + secondLock);
                 try {
                     Thread.sleep(100);
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }
-                System.out.println(secondLock + " поток ожидает");
                 synchronized (secondLock) {
-                    System.out.println(secondLock + " поток удерживает");
+                    System.out.println(Thread.currentThread().getName() + " hold " + secondLock);
+                    System.out.println(Thread.currentThread().getName() + " wait " + firstLock);
                 }
             }
         }).start();
