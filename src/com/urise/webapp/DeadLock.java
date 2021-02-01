@@ -19,8 +19,7 @@ public class DeadLock {
                     e.printStackTrace();
                 }
                 synchronized (secondLock) {
-                    System.out.println(Thread.currentThread().getName() + " hold " + secondLock);
-                    System.out.println(Thread.currentThread().getName() + " wait " + firstLock);
+                    System.out.println("Hold both locks");
                 }
             }
         }).start();
