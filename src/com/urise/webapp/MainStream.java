@@ -24,7 +24,6 @@ public class MainStream {
         int sum = integers.stream()
                 .mapToInt(Integer::valueOf)
                 .sum();
-
         return integers.stream()
                 .filter(x -> sum % 2 != x % 2)
                 .collect(Collectors.toList());
