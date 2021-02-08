@@ -12,7 +12,7 @@ ALTER TABLE public.resume
 
 CREATE TABLE public.contact
 (
-    id integer NOT NULL DEFAULT nextval('contact_id_seq'::regclass),
+    id SERIAL NOT NULL,
     resume_uuid character(36) COLLATE pg_catalog."default" NOT NULL,
     type text COLLATE pg_catalog."default" NOT NULL,
     value text COLLATE pg_catalog."default" NOT NULL,
@@ -26,11 +26,8 @@ CREATE TABLE public.contact
 
 ALTER TABLE public.contact
     OWNER to postgres;
--- Index: contact_uuid_type_index
-
--- DROP INDEX public.contact_uuid_type_index;
 
 CREATE UNIQUE INDEX contact_uuid_type_index
     ON public.contact USING btree
-    (resume_uuid COLLATE pg_catalog."default" ASC NULLS LAST, type COLLATE pg_catalog."default" ASC NULLS LAST)
+        (resume_uuid COLLATE pg_catalog."default" ASC NULLS LAST, type COLLATE pg_catalog."default" ASC NULLS LAST)
     TABLESPACE pg_default;
