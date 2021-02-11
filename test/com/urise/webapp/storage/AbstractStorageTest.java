@@ -37,34 +37,6 @@ public abstract class AbstractStorageTest {
 
         RESUME_1.setContact(ContactType.E_MAIL, "test@test.ru");
         RESUME_1.setContact(ContactType.PHONE, "8912398123");
-
-//        RESUME_1.setContact(ContactType.PHONE, "phone number");
-//        RESUME_1.setContact(ContactType.SKYPE, "skype");
-//        RESUME_1.setContact(ContactType.E_MAIL, "email");
-//        RESUME_1.setContact(ContactType.LINKED_IN, "linkedin");
-//        RESUME_1.setContact(ContactType.GIT_HUB, "github");
-//        RESUME_1.setContact(ContactType.STACKOVERFLOW, "stack-overflow");
-//        RESUME_1.setContact(ContactType.HOME_PAGE, "home page1");
-//
-//        RESUME_1.setSection(SectionType.OBJECTIVE, new TextSection("Младший специалист"));
-//        RESUME_1.setSection(SectionType.PERSONAL, new TextSection("Самостоятельный"));
-//        RESUME_1.setSection(SectionType.ACHIEVEMENT, new ListSection(new ArrayList<String>() {{
-//            add("Разобрался самостоятельно в Bootstrap");
-//        }}));
-//        RESUME_1.setSection(SectionType.QUALIFICATIONS, new ListSection(new ArrayList<String>() {{
-//            add("Java SE");
-//        }}));
-//
-//        RESUME_1.setSection(SectionType.EXPERIENCE, new Organization(
-//                new Experience("Test", "http://test.ru/",
-//                        new Experience.Position(1985, Month.APRIL, 1990, Month.FEBRUARY, "Test", "Test")),
-//                new Experience("Test", "http://test.ru/",
-//                        new Experience.Position(1990, Month.AUGUST, "Test", "Test"))));
-//
-//        RESUME_1.setSection(SectionType.EDUCATION, new Organization(
-//                new Experience("Санкт-Петербургский национальный исследовательский университет информационных технологий, механики и оптики", "https://itmo.ru/ru/",
-//                        new Experience.Position(1987, Month.SEPTEMBER, 1993, Month.JULY, "Инженер", "программист Fortran, C"),
-//                        new Experience.Position(1993, Month.SEPTEMBER, 1996, Month.JULY, "Аспирантура", "программист С, С++"))));
     }
 
     protected AbstractStorageTest(Storage storage) {

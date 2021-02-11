@@ -127,18 +127,16 @@ public class SQLStorage implements Storage {
         }
     }
 
-    private void deleteContacts(Connection conn, Resume r) {
-        sqlHelper.execute("DELETE  FROM contact WHERE resume_uuid=?", ps -> {
-            ps.setString(1, r.getUuid());
-            ps.execute();
-            return null;
-        });
+    private void deleteContacts(Connection conn, Resume r) throws SQLException {
+        conn.prepareStatement("DELETE  FROM contact WHERE resume_uuid=?");
     }
 
     private void addContact(ResultSet rs, Resume r) throws SQLException {
-        String value = rs.getString("value");
-        if (value != null) {
-            r.setContact(ContactType.valueOf(rs.getString("type")), value);
+        if (r.getContacts() != null) {
+            String value = rs.getString("value");
+            if (value != null) {
+                r.setContact(ContactType.valueOf(rs.getString("type")), value);
+            }
         }
     }
 }
