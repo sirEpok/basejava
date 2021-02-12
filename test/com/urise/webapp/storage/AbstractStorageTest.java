@@ -1,7 +1,6 @@
 package com.urise.webapp.storage;
 
 import com.urise.webapp.Config;
-import com.urise.webapp.ResumeTestData;
 import com.urise.webapp.exception.ExistStorageException;
 import com.urise.webapp.exception.NotExistStorageException;
 import com.urise.webapp.model.*;
@@ -9,35 +8,15 @@ import org.junit.Before;
 import org.junit.Test;
 
 import java.io.File;
-import java.time.Month;
 import java.util.*;
 
+import static com.urise.webapp.ResumeTestData.*;
 import static org.junit.Assert.assertEquals;
 
 public abstract class AbstractStorageTest {
     protected static final File STORAGE_DIR = Config.get().getStorageDir();
 
     protected Storage storage;
-
-    private static final String UUID_1 = UUID.randomUUID().toString();
-    private static final String UUID_2 = UUID.randomUUID().toString();
-    private static final String UUID_3 = UUID.randomUUID().toString();
-    private static final String UUID_4 = UUID.randomUUID().toString();
-
-    private static final Resume RESUME_1;
-    private static final Resume RESUME_2;
-    private static final Resume RESUME_3;
-    private static final Resume RESUME_4;
-
-    static {
-        RESUME_1 = new Resume(UUID_1, "Name1");
-        RESUME_2 = new Resume(UUID_2, "Name2");
-        RESUME_3 = new Resume(UUID_3, "Name3");
-        RESUME_4 = new Resume(UUID_4, "Name4");
-
-        RESUME_1.setContact(ContactType.E_MAIL, "test@test.ru");
-        RESUME_1.setContact(ContactType.PHONE, "8912398123");
-    }
 
     protected AbstractStorageTest(Storage storage) {
         this.storage = storage;
@@ -116,11 +95,4 @@ public abstract class AbstractStorageTest {
     public void getNotExist() throws Exception {
         storage.get("dummy");
     }
-
-//    @Test
-//    public void mockTestData() throws Exception {
-//        ResumeTestData rtd = new ResumeTestData();
-//        System.out.println(rtd.mockData("123", "Anton").contacts);
-//        System.out.println(rtd.mockData("123", "Anton").sections);
-//    }
 }

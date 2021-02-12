@@ -6,9 +6,31 @@ import java.time.Month;
 import java.util.*;
 
 public class ResumeTestData {
+    public static final String UUID_1 = UUID.randomUUID().toString();
+    public static final String UUID_2 = UUID.randomUUID().toString();
+    public static final String UUID_3 = UUID.randomUUID().toString();
+    public static final String UUID_4 = UUID.randomUUID().toString();
+    public static Resume RESUME_1;
+    public static Resume RESUME_2;
+    public static Resume RESUME_3;
+    public static Resume RESUME_4;
+
+    static {
+        RESUME_1 = new Resume(UUID_1, "Name1");
+        RESUME_2 = new Resume(UUID_2, "Name2");
+        RESUME_3 = new Resume(UUID_3, "Name3");
+        RESUME_4 = new Resume(UUID_4, "Name4");
+
+        RESUME_1.setContact(ContactType.E_MAIL, "mail1@ya.ru");
+        RESUME_1.setContact(ContactType.PHONE, "11111");
+
+        RESUME_4.setContact(ContactType.PHONE, "44444");
+        RESUME_4.setContact(ContactType.SKYPE, "Skype");
+    }
+
+
     public static Resume mockData(String uuid, String fullName) {
         Resume resume = new Resume(uuid, fullName);
-
         resume.setContact(ContactType.PHONE, "phone number");
         resume.setContact(ContactType.SKYPE, "skype");
         resume.setContact(ContactType.E_MAIL, "email");
@@ -36,12 +58,13 @@ public class ResumeTestData {
                 new Experience("Санкт-Петербургский национальный исследовательский университет информационных технологий, механики и оптики", "https://itmo.ru/ru/",
                         new Experience.Position(1987, Month.SEPTEMBER, 1993, Month.JULY, "Инженер", "программист Fortran, C"),
                         new Experience.Position(1993, Month.SEPTEMBER, 1996, Month.JULY, "Аспирантура", null))));
-
         return resume;
     }
 
+
+
     public static void main(String[] args) {
-        Resume resume = mockData("001","Григорий");
+        Resume resume = mockData("001","Антон");
 
         for (ContactType contactType : ContactType.values()) {
             System.out.println(contactType.getTitle() + " : " + resume.getContacts().get(contactType));
