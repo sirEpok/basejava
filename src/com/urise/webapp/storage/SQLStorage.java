@@ -140,11 +140,9 @@ public class SQLStorage implements Storage {
     private void addContact(ResultSet rs, Resume r) throws SQLException {
         Map<ContactType, String> contacts = r.getContacts();
         if(contacts.size() != 0) {
-            if (r.getContact(ContactType.E_MAIL) != null) {
-                String value = rs.getString("value");
-                if (value != null) {
-                    r.setContact(ContactType.valueOf(rs.getString("type")), value);
-                }
+            String value = rs.getString("value");
+            if (value != null) {
+                r.setContact(ContactType.valueOf(rs.getString("type")), value);
             }
         }
     }
