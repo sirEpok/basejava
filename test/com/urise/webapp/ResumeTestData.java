@@ -17,27 +17,20 @@ public class ResumeTestData {
 
     static {
         RESUME_1 = new Resume(UUID_1, "Name1");
-        RESUME_2 = new Resume(UUID_2, "Name2");
-        RESUME_3 = new Resume(UUID_3, "Name3");
-        RESUME_4 = new Resume(UUID_4, "Name4");
-
-        RESUME_1.setContact(ContactType.E_MAIL, "mail1@ya.ru");
-        RESUME_1.setContact(ContactType.PHONE, "11111");
-
-        RESUME_4.setContact(ContactType.PHONE, "44444");
-        RESUME_4.setContact(ContactType.SKYPE, "Skype");
+        RESUME_2 = mockData(UUID_2, "Name2");
+        RESUME_3 = mockData(UUID_3, "Name3");
+        RESUME_4 = mockData(UUID_4, "Name4");
     }
-
 
     public static Resume mockData(String uuid, String fullName) {
         Resume resume = new Resume(uuid, fullName);
-        resume.setContact(ContactType.PHONE, "phone number");
-        resume.setContact(ContactType.SKYPE, "skype");
-        resume.setContact(ContactType.E_MAIL, "email");
-        resume.setContact(ContactType.LINKED_IN, "linkedin");
-        resume.setContact(ContactType.GIT_HUB, "github");
-        resume.setContact(ContactType.STACKOVERFLOW, "stack-overflow");
-        resume.setContact(ContactType.HOME_PAGE, "home page1");
+//        resume.setContact(ContactType.PHONE, "phone number");
+//        resume.setContact(ContactType.SKYPE, "skype");
+//        resume.setContact(ContactType.E_MAIL, "email");
+//        resume.setContact(ContactType.LINKED_IN, "linkedin");
+//        resume.setContact(ContactType.GIT_HUB, "github");
+//        resume.setContact(ContactType.STACKOVERFLOW, "stack-overflow");
+//        resume.setContact(ContactType.HOME_PAGE, "home page1");
 
 //        resume.setSection(SectionType.OBJECTIVE, new TextSection("Младший специалист"));
 //        resume.setSection(SectionType.PERSONAL, new TextSection("Самостоятельный"));
@@ -60,8 +53,6 @@ public class ResumeTestData {
 //                        new Experience.Position(1993, Month.SEPTEMBER, 1996, Month.JULY, "Аспирантура", null))));
         return resume;
     }
-
-
 
     public static void main(String[] args) {
         Resume resume = mockData("001","Антон");
