@@ -24,13 +24,13 @@ public class ResumeTestData {
 
     public static Resume mockData(String uuid, String fullName) {
         Resume resume = new Resume(uuid, fullName);
-//        resume.setContact(ContactType.PHONE, "phone number");
-//        resume.setContact(ContactType.SKYPE, "skype");
-//        resume.setContact(ContactType.E_MAIL, "email");
-//        resume.setContact(ContactType.LINKED_IN, "linkedin");
-//        resume.setContact(ContactType.GIT_HUB, "github");
-//        resume.setContact(ContactType.STACKOVERFLOW, "stack-overflow");
-//        resume.setContact(ContactType.HOME_PAGE, "home page1");
+        resume.setContact(ContactType.PHONE, "phone number");
+        resume.setContact(ContactType.SKYPE, "skype");
+        resume.setContact(ContactType.E_MAIL, "email");
+        resume.setContact(ContactType.LINKED_IN, "linkedin");
+        resume.setContact(ContactType.GIT_HUB, "github");
+        resume.setContact(ContactType.STACKOVERFLOW, "stack-overflow");
+        resume.setContact(ContactType.HOME_PAGE, "home page1");
 
 //        resume.setSection(SectionType.OBJECTIVE, new TextSection("Младший специалист"));
 //        resume.setSection(SectionType.PERSONAL, new TextSection("Самостоятельный"));

@@ -47,8 +47,8 @@ public class SQLStorage implements Storage {
 
     @Override
     public void update(Resume r) {
-        String uuid = r.getUuid();
         sqlHelper.transactionalExecute(conn -> {
+            String uuid = r.getUuid();
             try (PreparedStatement ps = conn.prepareStatement("UPDATE resume SET full_name = ? WHERE uuid = ?")) {
                 ps.setString(1, r.getFullName());
                 ps.setString(2, uuid);
@@ -117,7 +117,7 @@ public class SQLStorage implements Storage {
 
     private void insertContact(Connection conn, Resume r) throws SQLException {
         Map<ContactType, String> contacts = r.getContacts();
-        if(contacts.size() != 0) {
+        if (contacts.size() != 0) {
             try (PreparedStatement ps = conn.prepareStatement("INSERT INTO contact (resume_uuid, type, value) VALUES (?,?,?)")) {
                 for (Map.Entry<ContactType, String> e : r.getContacts().entrySet()) {
                     ps.setString(1, r.getUuid());
@@ -138,12 +138,9 @@ public class SQLStorage implements Storage {
     }
 
     private void addContact(ResultSet rs, Resume r) throws SQLException {
-        Map<ContactType, String> contacts = r.getContacts();
-        if(contacts.size() != 0) {
-            String value = rs.getString("value");
-            if (value != null) {
-                r.setContact(ContactType.valueOf(rs.getString("type")), value);
-            }
+        String value = rs.getString("value");
+        if (value != null) {
+            r.setContact(ContactType.valueOf(rs.getString("type")), value);
         }
     }
 }
