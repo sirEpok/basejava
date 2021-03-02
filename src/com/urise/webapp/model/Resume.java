@@ -17,6 +17,17 @@ import java.util.UUID;
 public class Resume implements Comparable<Resume>, Serializable {
     private static final long serialVersionUID = 1L;
 
+    public static final Resume EMPTY = new Resume();
+
+    static {
+        EMPTY.setSection(SectionType.OBJECTIVE, TextSection.EMPTY);
+        EMPTY.setSection(SectionType.PERSONAL, TextSection.EMPTY);
+        EMPTY.setSection(SectionType.ACHIEVEMENT, ListSection.EMPTY);
+        EMPTY.setSection(SectionType.QUALIFICATIONS, ListSection.EMPTY);
+        EMPTY.setSection(SectionType.EXPERIENCE, new Organization(Experience.EMPTY));
+        EMPTY.setSection(SectionType.EDUCATION, new Organization(Experience.EMPTY));
+    }
+
     private String uuid;
     private String fullName;
 
@@ -47,7 +58,7 @@ public class Resume implements Comparable<Resume>, Serializable {
         return contacts.get(type);
     }
 
-    public AbstractSection getSection(ContactType type) {
+    public AbstractSection getSection(SectionType type) {
         return sections.get(type);
     }
 
@@ -58,7 +69,7 @@ public class Resume implements Comparable<Resume>, Serializable {
     public void setFullName(String fullName) {
         this.fullName = fullName;
     }
-    
+
     public String getFullName() {
         return fullName;
     }
