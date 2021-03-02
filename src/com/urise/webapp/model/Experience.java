@@ -18,6 +18,9 @@ import static com.urise.webapp.util.DateUtil.of;
 @XmlAccessorType(XmlAccessType.FIELD)
 public class Experience implements Serializable {
     private static final long serialVersionUID = 1L;
+
+    public static final Experience EMPTY = new Experience("", "", Position.EMPTY);
+
     private Link workLink;
     private List<Position> positions;
 
@@ -63,6 +66,7 @@ public class Experience implements Serializable {
     @XmlAccessorType(XmlAccessType.FIELD)
     public static class Position implements Serializable {
         private static final long serialVersionUID = 1L;
+        public static final Position EMPTY = new Position();
         @XmlJavaTypeAdapter(LocalDateAdapter.class)
         private LocalDate startDate;
         @XmlJavaTypeAdapter(LocalDateAdapter.class)
