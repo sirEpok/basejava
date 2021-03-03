@@ -113,6 +113,42 @@ public class ResumeServlet extends HttpServlet {
             case "add":
                 r = Resume.EMPTY;
                 break;
+            case "edit":
+                r = storage.get(uuid);
+                for (SectionType type : SectionType.values()) {
+                    AbstractSection section = r.getSection(type);
+                    switch (type) {
+                        case OBJECTIVE:
+                        case PERSONAL:
+                            if (section == null) {
+                                section = TextSection.EMPTY;
+                            }
+                            break;
+                        case ACHIEVEMENT:
+                        case QUALIFICATIONS:
+                            if (section == null) {
+                                section = ListSection.EMPTY;
+                            }
+                            break;
+                        case EXPERIENCE:
+                        case EDUCATION:
+                            Organization orgSection = (Organization) section;
+                            List<Experience> emptyFirstOrganizations = new ArrayList<>();
+                            emptyFirstOrganizations.add(Experience.EMPTY);
+                            if (orgSection != null) {
+                                for (Experience org : orgSection.getPlaces()) {
+                                    List<Experience.Position> emptyFirstPositions = new ArrayList<>();
+                                    emptyFirstPositions.add(Experience.Position.EMPTY);
+                                    emptyFirstPositions.addAll(org.getPositions());
+                                    emptyFirstOrganizations.add(new Experience(org.getWorkLink(), emptyFirstPositions));
+                                }
+                            }
+                            section = new Organization(emptyFirstOrganizations);
+                            break;
+                    }
+                    r.setSection(type, section);
+                }
+                break;
             default:
                 throw new IllegalArgumentException("Action " + action + " is illegal");
         }
