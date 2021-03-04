@@ -38,12 +38,14 @@
                     <input type='text' name='${type}' size=75 value='<%=section%>'>
                 </c:when>
                 <c:when test="${type=='PERSONAL'}">
-                    <textarea name='${type}' cols=75 rows=5><%=section%></textarea>
+                    <input type='text' name='${type}' size=75 value='<%=section%>'>
                 </c:when>
+
                 <c:when test="${type=='QUALIFICATIONS' || type=='ACHIEVEMENT'}">
                     <textarea name='${type}' cols=75
                               rows=5><%=String.join("\n", ((ListSection) section).getItems())%></textarea>
                 </c:when>
+
                 <c:when test="${type=='EXPERIENCE' || type=='EDUCATION'}">
                     <c:forEach var="org" items="<%=((Organization) section).getPlaces()%>"
                                varStatus="counter">
@@ -89,8 +91,8 @@
                 </c:when>
             </c:choose>
         </c:forEach>
-        <button type="submit">Сохранить</button>
-        <button onclick="window.history.back()">Отменить</button>
+        <button type="submit" onclick="test();">Сохранить</button>
+        <button onclick="window.history.back()" type="reset">Отменить</button>
     </form>
 </section>
 <jsp:include page="fragments/footer.jsp"/>
