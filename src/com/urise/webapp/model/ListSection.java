@@ -2,6 +2,7 @@ package com.urise.webapp.model;
 
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Objects;
@@ -22,7 +23,12 @@ public class ListSection extends AbstractSection {
     }
 
     public ListSection(List<String> items) {
-        this.items = items;
+        List<String> items_copy = new ArrayList<>(items);
+        items_copy.removeIf(String::isEmpty);
+        if (items_copy.size() < 1) {
+            items_copy.add("");
+        }
+        this.items = items_copy;
     }
 
     public List<String> getItems() {
