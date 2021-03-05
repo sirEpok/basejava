@@ -23,12 +23,7 @@ public class ListSection extends AbstractSection {
     }
 
     public ListSection(List<String> items) {
-        List<String> items_copy = new ArrayList<>(items);
-        items_copy.removeIf(String::isEmpty);
-        if (items_copy.size() < 1) {
-            items_copy.add("");
-        }
-        this.items = items_copy;
+        this.items = items;
     }
 
     public List<String> getItems() {

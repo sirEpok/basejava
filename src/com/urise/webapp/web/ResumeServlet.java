@@ -13,6 +13,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 public class ResumeServlet extends HttpServlet {
@@ -57,7 +58,11 @@ public class ResumeServlet extends HttpServlet {
                         break;
                     case ACHIEVEMENT:
                     case QUALIFICATIONS:
-                        r.setSection(type, new ListSection(value.split("\\n|\\r")));
+                        List<String> items_copy = new ArrayList<String>(Collections.singleton(value));
+                        items_copy.removeIf(String::isEmpty);
+                        if (items_copy.size() < 1) {
+                            items_copy.add("");
+                        }
                         break;
                     case EDUCATION:
                     case EXPERIENCE:
