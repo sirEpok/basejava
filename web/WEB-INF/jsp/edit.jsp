@@ -34,10 +34,7 @@
             <jsp:useBean id="section" type="com.urise.webapp.model.AbstractSection"/>
             <h2><a>${type.title}</a></h2>
             <c:choose>
-                <c:when test="${type=='OBJECTIVE'}">
-                    <input type='text' name='${type}' size=75 value='<%=section%>'>
-                </c:when>
-                <c:when test="${type=='PERSONAL'}">
+                <c:when test="${type=='OBJECTIVE' || type=='PERSONAL'}">
                     <input type='text' name='${type}' size=75 value='<%=section%>'>
                 </c:when>
 
